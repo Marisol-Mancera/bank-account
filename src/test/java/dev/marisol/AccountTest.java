@@ -59,26 +59,41 @@ public class AccountTest {
 
         Account account = new Account(balance, anualTaxRate);
 
-        assertThrows(IllegalArgumentException.class, () 
-        -> account.withdraw(withdraw));
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(withdraw));
 
-        assertEquals(balance, account.getBalance(), delta); 
-        assertEquals(0, account.getWithdrawCount()); 
+        assertEquals(balance, account.getBalance(), delta);
+        assertEquals(0, account.getWithdrawCount());
 
-        }
-
-        @Test
-        public void shouldApplyMonthlyInterestToBalance(){
-            float balance = 100f;
-            float anualTaxRate = 0.05f;
-            float applyMonthlyInterest = balance + (balance * anualTaxRate / 12f);
-            float delta = 0.01f;
-
-            Account account = new Account(balance, anualTaxRate);
-            account.applyMonthlyInterest();
-
-            assertEquals(applyMonthlyInterest, account.getBalance(), delta);
-
-        }
     }
 
+    @Test
+    public void shouldApplyMonthlyInterestToBalance() {
+        float balance = 100f;
+        float anualTaxRate = 0.05f;
+        float applyMonthlyInterest = balance + (balance * anualTaxRate / 12f);
+        float delta = 0.01f;
+
+        Account account = new Account(balance, anualTaxRate);
+        account.applyMonthlyInterest();
+
+        assertEquals(applyMonthlyInterest, account.getBalance(), delta);
+
+    }
+
+    @Test
+    public void shouldApplyMonthlyStatementSubtractingCommissionThenInterest() {
+        float balance = 100f;
+        float anualTaxRate = 0.05f;
+        float fee = 1.5f;
+        float delta = 0.01f;
+
+        Account account = new Account(balance, anualTaxRate);
+        account.setMonthlyFee(fee);
+        account.monthlyStatement();
+
+        float afterfeeBalance = balance - fee;
+        float expectedBalance = afterfeeBalance + (afterfeeBalance * anualTaxRate / 12f);
+
+        assertEquals( expectedBalance, account.getBalance(), delta  );
+    }
+}

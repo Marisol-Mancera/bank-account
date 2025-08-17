@@ -6,7 +6,7 @@ public class Account {
     protected float anualTaxRate;
     protected int depositCount;
     protected int withdrawCount;
-    protected float applyMonthlyInterest;
+    protected float MonthlyInterest;
 
     public Account(float balance, float anualTaxRate) {
         this.balance = balance;
@@ -43,8 +43,18 @@ public class Account {
     }
 
     public void applyMonthlyInterest(){
-        float applyMonthlyInterest = (balance * anualTaxRate) / 12f;
-        this.balance += applyMonthlyInterest;
+        float monthlyTaxRate = (balance * anualTaxRate) / 12f;
+        this.balance += monthlyTaxRate;
+    }
+
+    public void setMonthlyFee(float fee){
+        this.MonthlyInterest = fee;
+    }
+    
+
+    public void monthlyStatement(){
+        balance -= MonthlyInterest;
+        applyMonthlyInterest();
     }
 
 }
