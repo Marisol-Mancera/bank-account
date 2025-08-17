@@ -30,6 +30,9 @@ public class Account {
     }
 
     public void withdraw(float amount) {
+        if (amount > balance) {
+            throw new IllegalArgumentException("¡Ni en tus sueños, amigo!");
+        }
         this.balance -= amount;
         this.withdrawCount++;
     }

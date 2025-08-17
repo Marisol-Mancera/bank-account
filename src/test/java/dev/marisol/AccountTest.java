@@ -1,9 +1,8 @@
 package dev.marisol;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestClassOrder;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AccountTest {
 
@@ -51,4 +50,21 @@ public class AccountTest {
         assertEquals(1, account.getWithdrawCount());
     }
 
-}
+    @Test
+    public void shouldThrowExceptionWhenWithdrawMoreThanBalance() {
+        float balance = 50f;
+        float anualTaxRate = 0.5f;
+        float withdraw = 100f;
+        float delta = 0.01f;
+
+        Account account = new Account(balance, anualTaxRate);
+
+        assertThrows(IllegalArgumentException.class, () 
+        -> account.withdraw(withdraw));
+
+        assertEquals(balance, account.getBalance(), delta); 
+        assertEquals(0, account.getWithdrawCount()); 
+
+        }
+    }
+
