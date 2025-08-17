@@ -6,7 +6,7 @@ public class Account {
     protected float anualTaxRate;
     protected int depositCount;
     protected int withdrawCount;
-    protected float MonthlyInterest;
+    protected float monthlyFee = 0f;
 
     public Account(float balance, float anualTaxRate) {
         this.balance = balance;
@@ -48,20 +48,21 @@ public class Account {
     }
 
     public void setMonthlyFee(float fee) {
-        this.MonthlyInterest = fee;
+        this.monthlyFee = fee;
     }
 
     public void monthlyStatement() {
-        balance -= MonthlyInterest;
+        balance -= monthlyFee;
         applyMonthlyInterest();
     }
 
     public String printSummary() {
-        String summary = "Balance:" + balance + "/n" +
-                "Depósitos: 5" + depositCount + "/n" +
-                "Retiros: 3" + withdrawCount + "/n" +
-                "Tasa Anual: 0.05" + anualTaxRate + "/n" +
-                "Comisión Mensual: 1.5" + MonthlyInterest;
+        String NL = System.lineSeparator();
+        String summary = "Balance:" + balance + NL +
+                "Depósitos: 5" + depositCount + NL +
+                "Retiros: 3" + withdrawCount + NL +
+                "Tasa Anual: 0.05" + anualTaxRate + NL +
+                "Comisión Mensual: 1.5" + monthlyFee;
         return summary;
     }
 
