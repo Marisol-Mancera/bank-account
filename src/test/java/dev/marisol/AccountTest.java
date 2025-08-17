@@ -66,5 +66,19 @@ public class AccountTest {
         assertEquals(0, account.getWithdrawCount()); 
 
         }
+
+        @Test
+        public void shouldApplyMonthlyInterestToBalance(){
+            float balance = 100f;
+            float anualTaxRate = 0.05f;
+            float applyMonthlyInterest = balance + (balance * anualTaxRate / 12f);
+            float delta = 0.01f;
+
+            Account account = new Account(balance, anualTaxRate);
+            account.applyMonthlyInterest();
+
+            assertEquals(applyMonthlyInterest, account.getBalance(), delta);
+
+        }
     }
 
