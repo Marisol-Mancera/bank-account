@@ -1,6 +1,8 @@
 package dev.marisol;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AccountTest {
@@ -14,8 +16,9 @@ public class AccountTest {
 
         Account account = new Account(balance, anualTaxRate);
 
-        assertEquals(balance, account.getBalance(), delta); //saldo
-        assertEquals(anualTaxRate, account.getAnualTaxRate(), delta); //contador
+        assertEquals(balance, account.getBalance(), delta); // saldo
+        assertEquals(anualTaxRate, account.getAnualTaxRate(), delta); // contador
+
     }
 
     @Test
@@ -26,12 +29,26 @@ public class AccountTest {
         float delta = 0.01f;
 
         Account account = new Account(balance, anualTaxRate);
-        account.deposit (deposit);
+        account.deposit(deposit);
 
         assertEquals(balance + deposit, account.getBalance(), delta);
-        assertEquals(1, account.getDepositAmount()); //contador debe aumentar
+        assertEquals(1, account.getDepositCount()); // contador
 
+    }
 
+    // Test para retiro exitoso
+    @Test
+    public void shoulSubstractBalanceWhenWithdrawIsMade() {
+        float balance = 50f;
+        float anualTaxRate = 0.5f;
+        float withdraw = 50f;
+        float delta = 0.01f;
+
+        Account account = new Account(balance, anualTaxRate);
+        account.withdraw(withdraw);
+
+        assertEquals(balance - withdraw, account.getBalance(), delta);
+        assertEquals(1, account.getWithdrawCount());
     }
 
 }

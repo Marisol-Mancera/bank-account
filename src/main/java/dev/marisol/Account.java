@@ -5,13 +5,14 @@ public class Account {
     protected float balance;
     protected float anualTaxRate;
     protected int depositCount;
+    protected int withdrawCount;
 
     public Account(float balance, float anualTaxRate) {
         this.balance = balance;
         this.anualTaxRate = anualTaxRate;
     }
 
-    public  float getBalance() {
+    public float getBalance() {
         return balance;
     }
 
@@ -19,13 +20,22 @@ public class Account {
         return anualTaxRate;
     }
 
-    public void deposit( float depositCount) {
-        this.balance += depositCount;
+    public void deposit(float amount) {
+        this.balance += amount;
         this.depositCount++;
     }
 
-    public int getDepositAmount() {
-        return depositCount;
+    public int getDepositCount() {
+        return depositCount ;
     }
-    
+
+    public void withdraw(float amount) {
+        this.balance -= amount;
+        this.withdrawCount++;
+    }
+
+    public int getWithdrawCount() {
+        return withdrawCount;
+    }
+
 }
