@@ -3,6 +3,7 @@ package dev.marisol;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AccountTest {
 
@@ -95,5 +96,25 @@ public class AccountTest {
         float expectedBalance = afterfeeBalance + (afterfeeBalance * anualTaxRate / 12f);
 
         assertEquals( expectedBalance, account.getBalance(), delta  );
+    }
+    
+    @Test
+    public void shouldPrintSummary(){
+        float balance = 100f;
+        float anualTaxRate = 0.05f;
+        float fee = 1.5f;
+
+        Account account = new Account(balance, anualTaxRate);
+        account.depositCount = 5; // Simulando depósitos
+        account.withdrawCount = 3; // Simulando retiros 
+        account.setMonthlyFee(fee);
+
+        String summary = account.printSummary();
+
+        assertTrue (summary.contains("Balance:"));
+        assertTrue (summary.contains("Depósitos: 5"));
+        assertTrue (summary.contains("Retiros: 3"));
+        assertTrue (summary.contains("Tasa Anual: 0.05"));
+        assertTrue (summary.contains("Comisión Mensual: 1.5"));
     }
 }
