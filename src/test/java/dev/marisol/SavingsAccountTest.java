@@ -2,7 +2,6 @@ package dev.marisol;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestFactory;
 
 public class SavingsAccountTest {
 
@@ -33,7 +32,6 @@ public class SavingsAccountTest {
     void ShouldRejectDepositWhenInactive() {
         float balance = 9000f;
         float annualTaxRate = 0.05f;
-        float deposit = 1000f;
         float delta = 0.01f;
 
         SavingsAccount account = new SavingsAccount(balance, annualTaxRate);
@@ -125,4 +123,6 @@ public class SavingsAccountTest {
         assertTrue(summary.contains("Comisión mensual:"));
         assertTrue(summary.contains("Transacciones: 2")); 
         }
-    }
+
+}
+    
