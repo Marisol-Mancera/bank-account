@@ -44,4 +44,15 @@ public class SavingsAccount extends Account {
         super.monthlyStatement();
         this.updateActive();
     }
+
+    @Override
+    public String printSummary(){
+        int tx = depositCount + withdrawCount;
+        String NL = System.lineSeparator();
+        return  "Saldo:" + balance + NL +
+                "Comisión mensual:" + monthlyFee + NL +
+                "Transacciones: 2" + tx;
+
+        
+    }
 }

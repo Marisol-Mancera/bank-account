@@ -64,7 +64,7 @@ public class SavingsAccountTest {
     }
 
     @Test
-    void shouldRejectWithdrawWhenInactive(){
+    void shouldRejectWithdrawWhenInactive() {
         float balance = 9000f;
         float annualTaxRate = 0.05f;
         float withdraw = 1000f;
@@ -91,19 +91,38 @@ public class SavingsAccountTest {
         assertTrue(account.isActive());
         account.setMonthlyFee(fee);
 
-         for (int i = 0; i < 6; i++) account.withdraw(100f); 
-         account.monthlyStatement();
+        for (int i = 0; i < 6; i++)
+            account.withdraw(100f);
+        account.monthlyStatement();
 
         float afterWithdrawals = balance - 600f;
-        float extraFee = (6 - 4) * 1000f; 
-        float totalFee = fee + extraFee; 
-        float afterFees = afterWithdrawals - totalFee; 
+        float extraFee = (6 - 4) * 1000f;
+        float totalFee = fee + extraFee;
+        float afterFees = afterWithdrawals - totalFee;
         float expected = afterFees + (afterFees * (annualTaxRate / 12f));
 
         assertEquals(expected, account.getBalance(), delta);
         assertEquals(6, account.getWithdrawCount());
-        assertTrue(account.isActive()); 
+        assertTrue(account.isActive());
     }
-}
 
+    @Test
+        void shouldReturnSavingsPrintableSummary() {
+        float balance = 12000f;  
+        float annualTaxRate = 0.05f;
+        float fee = 1.5f;
+        
 
+        SavingsAccount account = new SavingsAccount(balance, annualTaxRate);
+        account.setMonthlyFee(fee);
+        account.deposit(100f);
+        account.withdraw(50f);
+
+        
+        String summary = account.printSummary(); 
+
+        assertTrue(summary.contains("Saldo:"));
+        assertTrue(summary.contains("Comisión mensual:"));
+        assertTrue(summary.contains("Transacciones: 2")); 
+        }
+    }
