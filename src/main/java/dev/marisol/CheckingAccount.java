@@ -45,6 +45,11 @@ public class CheckingAccount extends Account {
     }
 
     @Override
+    public void monthlyStatement() {
+        super.monthlyStatement();
+    }
+
+    @Override
     public String printSummary() {
         String NL = System.lineSeparator();
         int tx = depositCount + withdrawCount;
