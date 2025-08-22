@@ -183,8 +183,6 @@ mvn clean test jacoco:report
 
 ## 🧾 UML (diagrams.net / Mermaid)
 
-Puedes insertar este diagrama en diagrams.net (**Insertar > Avanzado > Mermaid**):
-
 ```mermaid
 classDiagram
 class Account{
